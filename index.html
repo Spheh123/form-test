@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church Partnership Registration</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background-color: #e6f7ee;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .success-icon {
+            font-size: 50px;
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+        
+        .partner-code {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #d1ecf1;
+            border-radius: 5px;
+            border-left: 5px solid #3498db;
+        }
+        
+        .instructions {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 14px;
+            border-left: 5px solid #e74c3c;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Church Partnership Registration</h1>
+        <p class="subtitle">Join our ministry as a partner and help spread the word of God</p>
+        
+        <form id="partnershipForm" action="https://formsubmit.co/spheleles332@gmail.com" method="POST">
+            <!-- FormSubmit Configuration -->
+            <input type="hidden" name="_subject" value="New Partnership Registration">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="#success">
+            <input type="hidden" name="_captcha" value="false">
+            
+            <div class="form-group">
+                <label for="fullName" class="required">Full Name</label>
+                <input type="text" id="fullName" name="Full Name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email" class="required">Email Address</label>
+                <input type="email" id="email" name="Email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone" class="required">Phone Number</label>
+                <input type="tel" id="phone" name="Phone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="address" class="required">Address</label>
+                <textarea id="address" name="Address" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="partnershipType" class="required">Type of Partnership</label>
+                <select id="partnershipType" name="Partnership Type" required>
+                    <option value="">Select an option</option>
+                    <option value="prayer">Prayer Partner</option>
+                    <option value="financial">Financial Partner</option>
+                    <option value="volunteer">Volunteer Partner</option>
+                    <option value="both">Financial and Prayer Partner</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="comments">Comments or Prayer Requests</label>
+                <textarea id="comments" name="Comments" rows="4"></textarea>
+            </div>
+            
+            <button type="submit">Submit Partnership Application</button>
+        </form>
+        
+        <div id="success" class="success-message">
+            <div class="success-icon">✓</div>
+            <h2>Thank You for Your Partnership!</h2>
+            <p>Your registration has been successfully submitted.</p>
+            <p>Your unique partnership code is:</p>
+            <div class="partner-code" id="partnerCodeDisplay">Loading...</div>
+            <p>Please keep this code safe as it will be required for all partnership-related activities.</p>
+            
+            <div class="instructions">
+                <p><strong>Important:</strong> You will receive a confirmation email shortly with your partnership details.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('partnershipForm').addEventListener('submit', function(e) {
+            // Generate a unique partnership code
+            const timestamp = new Date().getTime().toString(36);
+            const randomStr = Math.random().toString(36).substring(2, 8);
+            const partnerCode = `CH${timestamp}${randomStr}`.toUpperCase();
+            
+            // Add the partnership code as a hidden field to the form
+            const codeInput = document.createElement('input');
+            codeInput.type = 'hidden';
+            codeInput.name = 'Partnership Code';
+            codeInput.value = partnerCode;
+            this.appendChild(codeInput);
+            
+            // Display the partnership code to the user
+            document.getElementById('partnerCodeDisplay').textContent = partnerCode;
+            
+            // Show success message after form submission
+            setTimeout(function() {
+                document.getElementById('success').style.display = 'block';
+                window.scrollTo(0, document.body.scrollHeight);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
